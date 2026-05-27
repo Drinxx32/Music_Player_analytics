@@ -172,6 +172,60 @@ function SegMIN(segundos){
     return minuto + ':' + seg;
 }
 
+// Atualiza o tempo da música
+document.getElementById('barra').addEventListener('click', (e) => {
+    let barra = document.getElementById('barra');
+    let newtime = (e.offsetX / barra.offsetWidth) * musica.duration;
+    musica.currentTime = newtime;
+    tocar();
+});
+
+// Controle de repetição
+let repeatMode = 0; 
+let botaoRepeat = document.getElementById('botao-repeat');
+
+// Alterna entre os modos de repetição
+botaoRepeat.addEventListener('click', () => {
+    repeatMode++;
+    if (repeatMode > 2) {
+        repeatMode = 0; 
+    }
+    atualizarbotaorepeat();
+
+});
+
+// Atualiza o botão de repetição
+function atualizarbotaorepeat() {
+    if (repeatMode === 0) {
+        botaoRepeat.classList.remove('repeat-ativo');
+        botaoRepeat.style.color = '#ccc';
+    } else if (repeatMode === 1) {
+        botaoRepeat.classList.add('repeat-ativo');
+        botaoRepeat.style.color = 'rgb(131, 20, 141)';
+        botaoRepeat.style.transform = 'rotate(0deg)';
+    } else if (repeatMode === 2) {
+        botaoRepeat.classList.add('repeat-ativo');
+        botaoRepeat.style.color = 'rgb(197, 151, 201)';
+        botaoRepeat.style.transform = 'rotate(360deg)';
+    }
+}
+
+// final da música
+musica.addEventListener('ended', () => {
+    
+
+    if (repeatMode === 1) {
+        musica.currentTime = 0;
+        tocar(); 
+    } else {
+        indexmusica++;
+        if (indexmusica >= musicas.length) {
+            indexmusica = 0;
+        }
+        renderizarmusica(indexmusica);
+        tocar();
+    }
+});
 // iniciar player
 
 renderizarmusica(indexmusica);

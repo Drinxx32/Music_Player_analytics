@@ -136,3 +136,22 @@ progress{
 
     display: none;
 }
+
+.botao-repeat{
+
+    color: aliceblue;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.repeat-ativo{
+
+    color: rgb(131, 20, 141);
+
+    transform: rotate(90deg);
+}
